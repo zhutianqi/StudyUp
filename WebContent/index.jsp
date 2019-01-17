@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="map.Lookup" %>
+<%@ page import="map.Location" %>
+
 <html>
 <head>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -74,10 +76,16 @@
 	<%
 	String place = request.getParameter("place");
 	if (place != null && !place.isEmpty()) {
-       	String loc = Lookup.lookupPlace(place);
-       	if (loc != null) {
+		Location loc = Lookup.lookupPlace(place);
+		if (loc != null) {
+			double lat = loc.getLat();
+			double lon = loc.getLon();
+			/* String loc = Lookup.lookupPlace(place);
+       			if (loc != null) {
         	double lat = Double.parseDouble(loc.split("\t")[0]);
-        	double lon = Double.parseDouble(loc.split("\t")[1]); %>
+        	double lon = Double.parseDouble(loc.split("\t")[1]); */
+        	%>
+			
         	<script>gotoLoc(<%=lat%>, <%=lon%>);</script>
        	<%}
        }%>
