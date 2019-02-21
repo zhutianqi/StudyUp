@@ -14,8 +14,17 @@ import edu.studyup.util.StudyUpException;
 public class EventServiceImpl implements EventService {
 
 	@Override
-	public Event updateEvent(Event event) {
-		DataStorage.eventData.put(event.getEventID(), event);
+	public Event updateEventName(int eventID, String name) throws StudyUpException {
+		Event event = DataStorage.eventData.get(eventID);
+		if(event == null) {
+			throw new StudyUpException("No event found.");
+		}
+
+		if(name.length() >= 20) {
+			throw new StudyUpException("Length too long. Maximun is 20");
+		}
+		event.setName(name);
+		DataStorage.eventData.put(eventID, event);
 		event = DataStorage.eventData.get(event.getEventID());
 		return event;
 	}
@@ -25,12 +34,9 @@ public class EventServiceImpl implements EventService {
 		Map<Integer, Event> eventData = DataStorage.eventData;
 		List<Event> activeEvents = new ArrayList<>();
 		
-		// Checks if an event date is before today, if no, then add to the active event list.
-		for (int i=0;i<eventData.size();i++) {
-			Event ithEvent= eventData.get(i);
-			if(!ithEvent.getDate().before(new Date())) {
-				activeEvents.add(ithEvent);
-			}
+		for (Integer key : eventData.keySet()) {
+			Event ithEvent= eventData.get(key);
+			activeEvents.add(ithEvent);
 		}
 		return activeEvents;
 	}
@@ -40,9 +46,9 @@ public class EventServiceImpl implements EventService {
 		Map<Integer, Event> eventData = DataStorage.eventData;
 		List<Event> pastEvents = new ArrayList<>();
 		
-		// Checks if an event date is before today, if no, then add to the active event list.
-		for (int i=0;i<eventData.size();i++) {
-			Event ithEvent= eventData.get(i);
+		for (Integer key : eventData.keySet()) {
+			Event ithEvent= eventData.get(key);
+			// Checks if an event date is before today, if yes, then add to the past event list.
 			if(ithEvent.getDate().before(new Date())) {
 				pastEvents.add(ithEvent);
 			}
@@ -51,24 +57,23 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public boolean addStudentToEvent(Student student, int eventID) throws Exception {
+	public Event addStudentToEvent(Student student, int eventID) throws StudyUpException {
 		Event event = DataStorage.eventData.get(eventID);
 		if(event == null) {
 			throw new StudyUpException("No event found.");
 		}
 		List<Student> presentStudents = event.getStudents();
-		//Todo Check
+		if(presentStudents == null) {
+			presentStudents = new ArrayList<>();
+		}
 		presentStudents.add(student);
-		event.setStudents(presentStudents);
-		DataStorage.eventData.put(eventID, event);
-		return false;
+		event.setStudents(presentStudents);		
+		return DataStorage.eventData.put(eventID, event);
 	}
 
 	@Override
-	public boolean deleteEvent(int eventID) {
-		DataStorage.eventData.remove(eventID);
-		//Todo error
-		return false;
+	public Event deleteEvent(int eventID) {		
+		return DataStorage.eventData.remove(eventID);
 	}
 
 }

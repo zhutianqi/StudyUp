@@ -8,9 +8,8 @@ import java.util.List;
  * The Event class holds all attributes related to an event. There are few
  * restrictions applied on the attributes:
  * 
- * @name The length of event name has to be less than(<) 20 characters.
- * @students There could at most be {@code 3 students} in an event.
- * @date Event with past dates can not be created or updated.
+ * @name The length of event name has to be less than(<=) 20 characters.
+ * @students There could at most be {@code 2 students} in an event.
  * @author shvz
  *
  */
