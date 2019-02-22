@@ -65,7 +65,7 @@ class EventServiceImplTest {
 		eventStudents.add(student2);
 		event.setStudents(eventStudents);
 		
-		DataStorage.eventData.put(event.getEventID(), event);
+		DataStorage.getEventdata().put(event.getEventID(), event);
 		
 		//Create Event2
 		Event event2 = new Event();
@@ -75,12 +75,12 @@ class EventServiceImplTest {
 		Location location2 = new Location(100, 50);
 		event2.setLocation(location2);
   
-		DataStorage.eventData.put(event2.getEventID(), event2);
+		DataStorage.getEventdata().put(event2.getEventID(), event2);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		DataStorage.eventData.clear();
+		DataStorage.getEventdata().clear();
 	}
 
 //	@Test
@@ -102,7 +102,7 @@ class EventServiceImplTest {
 	void testUpdateEventName_SameName_GoodCase() throws StudyUpException {
 		int eventID = 1;
 		eventServiceImpl.updateEventName(eventID, "Renamed Event 1");
-		assertEquals("Renamed Event 1", DataStorage.eventData.get(eventID).getName());
+		assertEquals("Renamed Event 1", DataStorage.getEventdata().get(eventID).getName());
 	}
 	
 	@Test
@@ -127,7 +127,7 @@ class EventServiceImplTest {
 		 int eventID = 1;
 		 String newName = "ILoveSushi";
 		 eventServiceImpl.updateEventName(eventID, newName);
-		 Assertions.assertNotNull(DataStorage.eventData.get(eventID));
+		 Assertions.assertNotNull(DataStorage.getEventdata().get(eventID));
 	 }
 	 
 	 @Test
@@ -143,7 +143,7 @@ class EventServiceImplTest {
 	    	 event3.setName("Event 3");
 	    	 Location location3 = new Location(100, 50);
 	    	 event3.setLocation(location3);
-	    	 DataStorage.eventData.put(event3.getEventID(), event3);
+	    	 DataStorage.getEventdata().put(event3.getEventID(), event3);
 	     } catch (ParseException e) {
 	    	 e.printStackTrace();
 	     }
@@ -165,7 +165,7 @@ class EventServiceImplTest {
 		 student3.setEmail("zWalter@gmail.com");
 		 student3.setId(3);
 		 eventServiceImpl.addStudentToEvent(student3, eventID);
-		 Event event = DataStorage.eventData.get(eventID);
+		 Event event = DataStorage.getEventdata().get(eventID);
 		 List<Student> students = event.getStudents();
 		 Assertions.assertFalse(students.size() > 2);
 	 }
@@ -180,7 +180,7 @@ class EventServiceImplTest {
 		 student3.setEmail("zWalter@gmail.com");
 		 student3.setId(3);
 		 eventServiceImpl.addStudentToEvent(student3, eventID);
-		 Assertions.assertNotNull(DataStorage.eventData.get(eventID).getStudents());
+		 Assertions.assertNotNull(DataStorage.getEventdata().get(eventID).getStudents());
 	 }
 	 
 	 @Test
@@ -211,6 +211,6 @@ class EventServiceImplTest {
 	 void testDeleteEvent_GoodCase() {
 		 int eventID = 2;
 		 eventServiceImpl.deleteEvent(eventID);
-		 Assertions.assertNull(DataStorage.eventData.get(eventID));
+		 Assertions.assertNull(DataStorage.getEventdata().get(eventID));
 	 }
 }

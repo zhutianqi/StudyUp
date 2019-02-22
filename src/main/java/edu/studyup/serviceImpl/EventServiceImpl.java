@@ -15,7 +15,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public Event updateEventName(int eventID, String name) throws StudyUpException {
-		Event event = DataStorage.eventData.get(eventID);
+		Event event = DataStorage.getEventdata().get(eventID);
 		if(event == null) {
 			throw new StudyUpException("No event found.");
 		}
@@ -24,14 +24,14 @@ public class EventServiceImpl implements EventService {
 			throw new StudyUpException("Length too long. Maximun is 20");
 		}
 		event.setName(name);
-		DataStorage.eventData.put(eventID, event);
-		event = DataStorage.eventData.get(event.getEventID());
+		DataStorage.getEventdata().put(eventID, event);
+		event = DataStorage.getEventdata().get(event.getEventID());
 		return event;
 	}
 
 	@Override
 	public List<Event> getActiveEvents() {
-		Map<Integer, Event> eventData = DataStorage.eventData;
+		Map<Integer, Event> eventData = DataStorage.getEventdata();
 		List<Event> activeEvents = new ArrayList<>();
 		
 //		for (Integer key : eventData.keySet()) {
@@ -47,7 +47,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> getPastEvents() {
-		Map<Integer, Event> eventData = DataStorage.eventData;
+		Map<Integer, Event> eventData = DataStorage.getEventdata();
 		List<Event> pastEvents = new ArrayList<>();
 		
 //		for (Integer key : eventData.keySet()) {
@@ -71,7 +71,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public Event addStudentToEvent(Student student, int eventID) throws StudyUpException {
-		Event event = DataStorage.eventData.get(eventID);
+		Event event = DataStorage.getEventdata().get(eventID);
 		if(event == null) {
 			throw new StudyUpException("No event found.");
 		}
@@ -81,12 +81,12 @@ public class EventServiceImpl implements EventService {
 		}
 		presentStudents.add(student);
 		event.setStudents(presentStudents);		
-		return DataStorage.eventData.put(eventID, event);
+		return DataStorage.getEventdata().put(eventID, event);
 	}
 
 	@Override
 	public Event deleteEvent(int eventID) {		
-		return DataStorage.eventData.remove(eventID);
+		return DataStorage.getEventdata().remove(eventID);
 	}
 
 }
