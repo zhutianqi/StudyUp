@@ -9,10 +9,26 @@
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>MoveServlet</servlet-name>
-		<servlet-class>edu.studyup.data.MoveServlet</servlet-class>
+		<servlet-class>edu.studyup.servlets.MoveServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MoveServlet</servlet-name>
 		<url-pattern>/MoveServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>edu.studyup.servlets.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/SearchServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdateServlet</servlet-name>
+		<servlet-class>edu.studyup.servlets.UpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateServlet</servlet-name>
+		<url-pattern>/UpdateServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

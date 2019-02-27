@@ -1,0 +1,17 @@
+version: '3'
+services:
+  studyup:
+    image: studyup-img
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  nginx:
+    ports:
+     - "8888:8888"
+    image: nginx-img
+    links:
+     - studyup
+     - redis

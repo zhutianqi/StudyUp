@@ -3,8 +3,6 @@ package edu.studyup.service;
 import java.util.List;
 
 import edu.studyup.entity.Event;
-import edu.studyup.entity.Student;
-import edu.studyup.util.StudyUpException;
 
 /**
  * {@code EventService} holds all CRUD services for class {@link Event}
@@ -13,46 +11,40 @@ import edu.studyup.util.StudyUpException;
  *
  */
 public interface EventService {
-
-	/**
-	 * Updates the event name by taking in an eventID and the new name.
-	 * throws error if any failed constraints.
-	 * @param eventID The ID of the specific {@link Event} to be updated.
-	 * @param name    The String value to update.
-	 * @return        The updated {@code event}
-	 * @throws        StudyUpException 
-	 */
-	public Event updateEventName(int eventID, String name) throws StudyUpException;
 	
+	/**
+	 * Returns a single event for the given key
+	 * @param eventID the ID of the {@code Event} to be retrieved
+	 * @return An Event object decoded from JSON, or null if none exists
+	 */
+	public Event getEvent(String eventID);
+	
+	/**
+	 * @param event The {@code event} object to be created.
+	 * @return {@code key}, returns the key of the event in the store.
+	 */
+	public void createEvent(String eventID, Event event);
+	
+	/**
+	 * @param event The {@code event} object to be updated.
+	 * @param key The {@code key} of the event mapped in the store.
+	 * @return {@code Event}, returns the event.
+	 */
+	public void updateEvent(String eventID, Event event);
+
 
 	/**
-	 * Adds a student to a specific event and throws StudyUpException incase of any 
-	 * constraint failures.
-	 * @param student The {@link Student} to be added.
-	 * @param eventID The {@code eventID} of the specific {@link Event} to be
-	 *                updated.
-	 * @return Event, if the student is added successfully.
-	 * @throws StudyUpException 
+	 * @param key The {@code key} of the specific {@link Event} to delete.
+	 * @return 1 if the event is deleted, else 0.
 	 */
-	public Event addStudentToEvent(Student student, int eventID) throws StudyUpException;
-
+	public long deleteEvent(String eventID);
+	
 	/**
-	 * Fetches all the active events present. i.e., the events whose {@code Date} is
-	 * in the future.
-	 * @return The list of all active {@code events}. 
+	 * Fetches all the events from the store.
+	 * 
+	 * @return The list of all {@code events}.
 	 */
-	public List<Event> getActiveEvents();
-
-	/**
-	 * Fetches all the past events. i.e., the events with past {@code Date}.
-	 * @return The list of all past {@code events}.
-	 */
-	public List<Event> getPastEvents();
-
-	/**
-	 * @param eventID The {@code eventID} of the specific {@link Event} to delete.
-	 * @return {@code Event}, if the event exists and is deleted, else null.
-	 */
-	public Event deleteEvent(int eventID);
-
+	public List<Event> getAllEvents();
+	
+	public String deleteAll();
 }
