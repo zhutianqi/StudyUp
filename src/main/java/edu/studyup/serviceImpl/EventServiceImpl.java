@@ -12,12 +12,11 @@ import redis.clients.jedis.Jedis;
 
 public class EventServiceImpl implements EventService {
 	
-	//ToDO change server.
 	private Jedis jedis;
 	private Gson gson;
 
 	public EventServiceImpl(String URL) {
-		this.jedis = new Jedis(URL);
+		this.jedis = new Jedis(URL, 8888);
 		this.gson = new Gson();
 	}
 	
