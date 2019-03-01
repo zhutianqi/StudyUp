@@ -32,6 +32,7 @@ public class UpdateServlet extends HttpServlet {
 			response.getWriter().write(e.getMessage() == null ? "" : e.getMessage());
 		}
 	}
+	
 	private void updateEvent(HttpServletRequest request) {
 		EventServiceImpl impl = new EventServiceImpl(Utils.getBaseURL(request.getRequestURL().toString()));
 		String eventId = request.getParameter("eventId");
@@ -48,7 +49,7 @@ public class UpdateServlet extends HttpServlet {
 			impl.updateEvent(eventId, event);
 		}
 		else {
-			String eventID = UUID.randomUUID().toString();
+			eventId = UUID.randomUUID().toString();
 			event.setEventID(eventId);
 			String[] lonlat = request.getParameter("eventLoc").split(",");
 			event.setLocation(new Location(Double.parseDouble(lonlat[0]), Double.parseDouble(lonlat[1])));
@@ -64,7 +65,7 @@ public class UpdateServlet extends HttpServlet {
 				students.add(createStudent(attendee));
 			}
 			event.setStudents(students);
-			impl.createEvent(eventID, event);
+			impl.createEvent(eventId, event);
 		}
 	}
 	

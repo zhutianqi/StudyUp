@@ -133,7 +133,7 @@ function showUpdateEvent(evt, id) {
 		$("#event-name").prop("readonly", true);
 		$("#event-time").prop("value", event.date);
 		$("#event-time").prop("readonly", true);
-		$.each(event.students, (ix, student) => $("#event-attendees").append("<div class='event-attendee'>" + student.firstName + " " + student.lastName + "</div>"));
+		$.each(event.students, (ix, student) => $("#event-attendees").append("<div class='event-attendee'>" + student.firstName + (student.lastName ? " " + student.lastName : "") + "</div>"));
 		if (event.students.length < 5)
 			$("#event-attendees").append("<input class='form-control event-val' id='event-add-student' type='text' placeholder='Add student' />")
 	}
