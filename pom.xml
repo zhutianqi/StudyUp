@@ -122,9 +122,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>io.lettuce</groupId>
-			<artifactId>lettuce-core</artifactId>
-			<version>5.1.4.RELEASE</version>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.0.1</version>
 		</dependency>
 	</dependencies>
 </project>
